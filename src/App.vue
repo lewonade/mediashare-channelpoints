@@ -74,9 +74,9 @@ export default {
       };
 
       const options = {
-        identity: {
-          username: "tejwidendk31wwh1a3as0b2erystoi",
-          password: "oauth:ndg2e6d7s9d5nlabg5rbk5vwn3c5sr",
+        identity: {   
+          username: "YOUR-CLIENT-ID", // Go to this Link https://dev.twitch.tv/console/apps and add a new Applikation with the URL beeing 'https://localhost', everything else doesn't matter.
+          password: "oauth:abcdefghijklmnopqrstuvwxyz", // To retrieve your oautch-token you'll have to go to this website https://twitchapps.com/tmi/
         },
         channels: ["Lewonade"],
       };
@@ -102,8 +102,8 @@ export default {
           playNextVideo();
         } else {
           const isChannelPointReward =
-            tags["custom-reward-id"] === "47c5bee7-72c6-45a9-a91d-f64c495eb2cd";
-
+            tags["custom-reward-id"] === "YOUR-CUSTOM-REWARD-ID"; // You will have to create a channelpoint-reward on which the 'Viewer must enter text' is enabled. Use your channelpoint reward with a random word once and got to this website https://www.instafluff.tv/TwitchCustomRewardID/?channel=YOUR-TWITCH-USERNAME
+          
           if (isChannelPointReward) {
             const pattern =
               /(\d{2}:\d{2}-\d{2}:\d{2})?\s?(https:\/\/(www\.|m\.)?youtube\.com\/(watch\?v=|shorts\/)?[A-Za-z0-9_-]+|https:\/\/youtu\.be\/[A-Za-z0-9_-]+)/;
