@@ -26,7 +26,7 @@ export default {
 
     const playNextVideo = () => {
       if (videoQueue.value.length > 0 && player && !currentVideo) {
-        currentVideo = videoQueue.value[0]; // Get the next video in the queue without removing it
+        currentVideo = videoQueue.value[0]; 
 
         player.loadVideoById({
           videoId: currentVideo.videoId,
@@ -43,9 +43,9 @@ export default {
         player.stopVideo();
         currentVideo = null;
         isVideoLoaded = false;
-        videoQueue.value.shift(); // Remove the completed video from the queue
+        videoQueue.value.shift(); 
         if (videoQueue.value.length === 0) {
-          isPlaying.value = false; // No videos left in the queue, hide the div
+          isPlaying.value = false; 
         }
         playNextVideo();
       }
@@ -65,7 +65,7 @@ export default {
           height: "390",
           width: "640",
           playerVars: {
-            origin: window.location.origin, // Set the origin parameter
+            origin: window.location.origin, 
           },
           events: {
             onStateChange: onPlayerStateChange,
@@ -102,7 +102,8 @@ export default {
           playNextVideo();
         } else {
           const isChannelPointReward =
-            tags["custom-reward-id"] === "YOUR-CUSTOM-REWARD-ID"; // You will have to create a channelpoint-reward on which the 'Viewer must enter text' is enabled. Use your channelpoint reward with a random word once and got to this website https://www.instafluff.tv/TwitchCustomRewardID/?channel=YOUR-TWITCH-USERNAME
+            tags["custom-reward-id"] === "YOUR-CUSTOM-REWARD-ID"; // You will have to create a channelpoint-reward on which the 'Viewer must enter text' is enabled. 
+                                                                  // Use your channelpoint reward with a random word once and got to this website 'https://www.instafluff.tv/TwitchCustomRewardID/?channel=YOUR-TWITCH-USERNAME' <-- don't forget to edit the URL
           
           if (isChannelPointReward) {
             const pattern =
