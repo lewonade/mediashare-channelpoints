@@ -1,2 +1,11 @@
-# mediashare-channelpoints
- Let your Twitch-Chat share YouTube videos to play them on your stream.
+# youtube-twitch-obs
+
+## Project setup
+```
+cd own-stuff
+cd youtube-twitch-obs
+npm install
+npm run serve
+```
+
+
