@@ -27,7 +27,7 @@ Follow the instructions below to set up and run the application:
 
 4. Start the development server:
 
-   >npm run serve
+>npm run serve
 
 
 5. Connect the locally hostet (localhost:8080) application to OBS and configure the stream settings.
