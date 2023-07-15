@@ -78,7 +78,7 @@ export default {
           username: "YOUR-CLIENT-ID", // Go to this Link https://dev.twitch.tv/console/apps and add a new Applikation with the URL beeing 'https://localhost', everything else doesn't matter.
           password: "oauth:abcdefghijklmnopqrstuvwxyz", // To retrieve your oautch-token you'll have to go to this website https://twitchapps.com/tmi/
         },
-        channels: ["Lewonade"],
+        channels: ["YOUR-TWITCH-CHANNEL-NAME"], // This one isn't too hard. It enables this Twitch-User to !skip, !pause !resume the videos
       };
 
       const client = new tmi.Client(options);
