@@ -1,6 +1,6 @@
 # YouTube Twitch OBS
 
-This repository contains a Vue.js application that integrates YouTube and Twitch functionalities into OBS (Open Broadcaster Software). It allows you to play videos from YouTube within OBS and control the playback using Twitch chat commands.
+This repository contains a Vue.js application that enables youre viewers to use channelpoints to play YouTube videos on a locally hosted website (localhost:8080) that can be displayed in OBS.
 
 ## Installation and Usage
 
@@ -22,16 +22,19 @@ Follow the instructions below to set up and run the application:
   >npm install
 
 
+4. Open the Code in Visual Studio and follow the instructions. 
+
+
 4. Start the development server:
 
   >npm run serve
 
 
-5. Access the application in a web browser at the provided URL.
+5. Connect the locally hostet (localhost:8080) application to OBS and configure the stream settings.
 
-6. Connect the application to OBS and configure the stream settings.
-
-7. Use Twitch chat commands to control the YouTube playback in OBS.
-
-
-
+6. Use Twitch chat commands to control the YouTube playback in OBS.
+   
+   >!skip
+   >!pause
+   >!resume
+   
