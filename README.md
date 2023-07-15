@@ -8,23 +8,23 @@ Follow the instructions below to set up and run the application:
 
 1. Clone the repository to your local machine:
 
-git clone https://github.com/your-username/your-repo.git
+  git clone https://github.com/lewonade/mediashare-channelpoints.git
 
 
 
 2. Navigate to the project directory:
 
-cd youtube-twitch-obs
+  cd youtube-twitch-obs
 
 
 3. Install the dependencies:
 
-npm install
+  npm install
 
 
 4. Start the development server:
 
-npm run serve
+  npm run serve
 
 
 5. Access the application in a web browser at the provided URL.
