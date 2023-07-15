@@ -6,33 +6,41 @@ This repository contains a Vue.js application that enables youre viewers to use 
 
 Follow the instructions below to set up and run the application:
 
-1. Clone the repository to your local machine:
+1. Create the actual vue.js files needed for this application.
+
+   >vue create mediashare-channelpoints
+   
+   
+2. Clone the repository into your local new mediashare-channelpoints repository (should work, hopefully. if not just replace the existing App.vue and index.js coding):
 
   >git clone https://github.com/lewonade/mediashare-channelpoints.git
 
 
 
-2. Navigate to the project directory:
+4. Navigate to the project directory:
 
   >cd youtube-twitch-obs
 
 
-3. Install the dependencies:
+
+4. Install the dependencies:
 
   >npm install
 
 
-4. Open the Code in Visual Studio and follow the instructions. 
+
+5. Open the Code in Visual Studio and follow the instructions. 
 
 
-4. Start the development server:
+6. Start the development server:
 
 >npm run serve
 
 
-5. Connect the locally hostet (localhost:8080) application to OBS and configure the stream settings.
 
-6. Use Twitch chat commands to control the YouTube playback in OBS.
+7. Connect the locally hostet (localhost:8080) application to OBS and configure the stream settings.
+
+8. Use Twitch chat commands to control the YouTube playback in OBS.
    
 >!skip
 >!pause
