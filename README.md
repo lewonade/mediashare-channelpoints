@@ -1,4 +1,4 @@
-# YouTube Twitch OBS
+# Mediashare using Channelpoints
 
 This repository contains a Vue.js application that enables youre viewers to use channelpoints to play YouTube videos on a locally hosted website (localhost:8080) that can be displayed in OBS.
 
