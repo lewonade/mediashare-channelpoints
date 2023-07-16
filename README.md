@@ -25,8 +25,9 @@ Follow the instructions below to set up and run the application:
 
 4. Install the dependencies:
 
-  >npm install
-  >npm install tmi.js
+- >npm install
+
+- >npm install tmi.js
 
 
 
