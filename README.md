@@ -8,7 +8,7 @@ Follow the instructions below to set up and run the application:
 
 1. Create the actual vue.js files needed for this application.
 
-   >vue create mediashare-channelpoints
+  >vue create mediashare-channelpoints
    
    
 2. Clone the repository into your local new mediashare-channelpoints repository (should work, hopefully. if not just replace the existing App.vue and index.js coding):
@@ -42,12 +42,10 @@ Follow the instructions below to set up and run the application:
 
 8. Use Twitch chat commands to control the YouTube playback in OBS.
    
->!skip
->!pause
->!resume
-
-
-WORK IN PROGRESS:
->!stop
->!start
+-!skip
+   - Skips the Video, either to the next video in the queue or if there is no next video the player goes dormant until a new video gets submitted
+-!pause
+-!resume
+-!stop
+-!start
    
