@@ -6,7 +6,7 @@ This repository contains a Vue.js application that enables youre viewers to use 
 
 Follow the instructions below to set up and run the application:
 
-1. Create the actual vue.js files needed for this application.
+1. Create the actual vue.js files needed for this application in Visual Studio.
 
   >vue create mediashare-channelpoints
    
