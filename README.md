@@ -46,8 +46,14 @@ Follow the instructions below to set up and run the application:
    - Skips the Video, either to the next video in the queue or if there is no next video the player goes dormant until a new video gets submitted.
      
 - **!pause**
--   Pauses the video that is currently playing.
--!resume
--!stop
--!start
+  - Pauses the video that is currently playing.
+    
+- **!resume**
+  - Resumes playing a paused video.
+    
+- **!stop**
+  - Stops playing videos but still saves submitted ones in the queue
+    
+- **!start**
+ - Un-Stops videos and the programm will go back to playing videos normally.
    
