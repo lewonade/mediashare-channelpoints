@@ -43,9 +43,10 @@ Follow the instructions below to set up and run the application:
 8. Use Twitch chat commands to control the YouTube playback in OBS.
    
 - **!skip**
-   - Skips the Video, either to the next video in the queue or if there is no next video the player goes dormant until a new video gets submitted
+   - Skips the Video, either to the next video in the queue or if there is no next video the player goes dormant until a new video gets submitted.
      
--!pause
+- **!pause**
+-   Pauses the video that is currently playing.
 -!resume
 -!stop
 -!start
