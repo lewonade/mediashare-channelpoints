@@ -17,9 +17,9 @@ Follow the instructions below to set up and run the application:
 
 
 
-4. Navigate to the project directory:
+4. Navigate to the project directory via your terminal inside VisualStudio or CMD:
 
-  >cd youtube-twitch-obs
+  >cd mediashare-channelpoints
 
 
 
