@@ -31,7 +31,7 @@ Follow the instructions below to set up and run the application:
 
 
 
-5. Open the Code in Visual Studio and follow the instructions. 
+5. Open the Code in Visual Studio and follow the instructions in the comments. 
 
 
 6. Start the development server:
