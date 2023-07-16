@@ -60,4 +60,8 @@ Follow the instructions below to set up and run the application:
 - **!start**
   - Un-Stops videos and the programm will go back to playing videos normally.
 
+
+**I've made it work for me, if you need an example of what it looks like or you wanna test it out, i've always got it up and running while i stream https://www.twitch.tv/lewonade.**
+ik shameless plug (;
+
    
