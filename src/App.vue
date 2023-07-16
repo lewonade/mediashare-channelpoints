@@ -1,11 +1,13 @@
 <template>
-  <div
-    id="app"
-    :class="{ 'is-invisible': !isPlaying && videoQueue.length === 0 }"
-  >
-    <div ref="playerDiv"></div>
-    <div class="loading-bar" v-if="isPlaying">
-      <div class="progress" :style="{ width: progressBarWidth }"></div>
+  <div :class="{ 'is-invisible': hideWebsite }">
+    <div
+      id="app"
+      :class="{ 'is-invisible': !isPlaying && videoQueue.length === 0 }"
+    >
+      <div ref="playerDiv"></div>
+      <div class="loading-bar" v-if="isPlaying">
+        <div class="progress" :style="{ width: progressBarWidth }"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -23,10 +25,11 @@ export default {
     let currentVideo = null;
     let isVideoLoaded = false;
     const isPlaying = ref(false);
+    const hideWebsite = ref(false);
 
     const playNextVideo = () => {
       if (videoQueue.value.length > 0 && player && !currentVideo) {
-        currentVideo = videoQueue.value[0]; 
+        currentVideo = videoQueue.value[0];
 
         player.loadVideoById({
           videoId: currentVideo.videoId,
@@ -43,12 +46,23 @@ export default {
         player.stopVideo();
         currentVideo = null;
         isVideoLoaded = false;
-        videoQueue.value.shift(); 
+        videoQueue.value.shift();
         if (videoQueue.value.length === 0) {
-          isPlaying.value = false; 
+          isPlaying.value = false;
         }
         playNextVideo();
       }
+    };
+
+    const stopPlaying = () => {
+      player.stopVideo();
+      isPlaying.value = false;
+      hideWebsite.value = true;
+    };
+
+    const startPlaying = () => {
+      hideWebsite.value = false;
+      skipToNextVideo();
     };
 
     const onPlayerStateChange = (event) => {
@@ -65,7 +79,7 @@ export default {
           height: "390",
           width: "640",
           playerVars: {
-            origin: window.location.origin, 
+            origin: window.location.origin,
           },
           events: {
             onStateChange: onPlayerStateChange,
@@ -74,11 +88,11 @@ export default {
       };
 
       const options = {
-        identity: {   
+        identity: {
           username: "YOUR-CLIENT-ID", // Go to this Link https://dev.twitch.tv/console/apps and add a new Applikation with the URL beeing 'https://localhost', everything else doesn't matter.
           password: "oauth:abcdefghijklmnopqrstuvwxyz", // To retrieve your oautch-token you'll have to go to this website https://twitchapps.com/tmi/
         },
-        channels: ["YOUR-TWITCH-CHANNEL-NAME"], // This one isn't too hard. It enables this Twitch-User to !skip, !pause !resume the videos
+        channels: ["YOUR-TWITCH-USERNAME"], // Put in your Twitch-Username. It enables this Twitch-User to !skip, !pause !resume the videos
       };
 
       const client = new tmi.Client(options);
@@ -96,15 +110,14 @@ export default {
         } else if (command === "!resume") {
           player.playVideo();
         } else if (command === "!stop") {
-          player.stopVideo();
-          isPlaying.value = false;
+          stopPlaying();
         } else if (command === "!start") {
-          playNextVideo();
+          startPlaying();
         } else {
           const isChannelPointReward =
-            tags["custom-reward-id"] === "YOUR-CUSTOM-REWARD-ID"; // You will have to create a channelpoint-reward on which the 'Viewer must enter text' is enabled. 
-                                                                  // Use your channelpoint reward with a random word once and got to this website 'https://www.instafluff.tv/TwitchCustomRewardID/?channel=YOUR-TWITCH-USERNAME' <-- don't forget to edit the URL
-          
+            tags["custom-reward-id"] === "YOUR-CUSTOM-REWARD-ID";// You will have to create a channelpoint-reward on which the 'Viewer must enter text' is enabled.
+                                                                                // Use your channelpoint reward with a random word once and got to this website 'https://www.instafluff.tv/TwitchCustomRewardID/?channel=YOUR-TWITCH-USERNAME' <-- don't forget to edit the URL
+
           if (isChannelPointReward) {
             const pattern =
               /(\d{2}:\d{2}-\d{2}:\d{2})?\s?(https:\/\/(www\.|m\.)?youtube\.com\/(watch\?v=|shorts\/)?[A-Za-z0-9_-]+|https:\/\/youtu\.be\/[A-Za-z0-9_-]+)/;
@@ -136,7 +149,7 @@ export default {
                 endTimeSeconds,
               });
 
-              if (!currentVideo && !isVideoLoaded) {
+              if (!currentVideo && !isVideoLoaded && !hideWebsite.value) {
                 playNextVideo();
               }
             }
@@ -162,6 +175,7 @@ export default {
       isPlaying,
       videoQueue,
       progressBarWidth,
+      hideWebsite,
     };
   },
 };
