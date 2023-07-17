@@ -25,7 +25,7 @@ export default {
     const hideWebsite = ref(false);
 
     
-    const privilegedUser = "Lewonade"; // Add a variable to store the privileged user that can use the chat commands
+    const privilegedUser = "YOUR-TWITCH-USERNAME"; // Add a variable to store the privileged user that can use the chat commands
 
     const playNextVideo = () => {
       if (videoQueue.value.length > 0 && player && !currentVideo) {
