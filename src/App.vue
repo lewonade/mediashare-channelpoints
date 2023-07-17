@@ -24,8 +24,8 @@ export default {
     const isPlaying = ref(false);
     const hideWebsite = ref(false);
 
-    // Add a variable to store the privileged user
-    const privilegedUser = "Lewonade";
+    
+    const privilegedUser = "Lewonade"; // Add a variable to store the privileged user that can use the chat commands
 
     const playNextVideo = () => {
       if (videoQueue.value.length > 0 && player && !currentVideo) {
@@ -96,7 +96,7 @@ export default {
           username: "YOUR-CLIENT-ID", // Go to this Link https://dev.twitch.tv/console/apps and add a new Applikation with the URL beeing 'https://localhost', everything else doesn't matter.
           password: "oauth:abcdefghijklmnopqrstuvwxyz", // To retrieve your oautch-token you'll have to go to this website https://twitchapps.com/tmi/
         },
-        channels: ["YOUR-TWITCH-USERNAME"], // Put in your Twitch-Username. It enables this Twitch-User to !skip, !pause !resume the videos
+        channels: ["YOUR-TWITCH-USERNAME"], // Put in your Twitch-Username.
       };
 
       const client = new tmi.Client(options);
