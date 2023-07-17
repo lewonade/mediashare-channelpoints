@@ -5,15 +5,12 @@
       :class="{ 'is-invisible': !isPlaying && videoQueue.length === 0 }"
     >
       <div ref="playerDiv"></div>
-      <div class="loading-bar" v-if="isPlaying">
-        <div class="progress" :style="{ width: progressBarWidth }"></div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, watch } from "vue";
 import tmi from "tmi.js";
 
 export default {
@@ -26,6 +23,9 @@ export default {
     let isVideoLoaded = false;
     const isPlaying = ref(false);
     const hideWebsite = ref(false);
+
+    // Add a variable to store the privileged user
+    const privilegedUser = "Lewonade";
 
     const playNextVideo = () => {
       if (videoQueue.value.length > 0 && player && !currentVideo) {
@@ -49,8 +49,9 @@ export default {
         videoQueue.value.shift();
         if (videoQueue.value.length === 0) {
           isPlaying.value = false;
+        } else {
+          playNextVideo();
         }
-        playNextVideo();
       }
     };
 
@@ -62,12 +63,14 @@ export default {
 
     const startPlaying = () => {
       hideWebsite.value = false;
-      skipToNextVideo();
+      skipToNextVideo(); // Skip the current video
+      playNextVideo(); // Play the next video
     };
 
     const onPlayerStateChange = (event) => {
       if (event.data === window.YT.PlayerState.ENDED) {
         skipToNextVideo();
+        playNextVideo(); // Play the next video after the current one ends
       } else if (event.data === window.YT.PlayerState.PLAYING) {
         isPlaying.value = true;
       }
@@ -80,6 +83,7 @@ export default {
           width: "640",
           playerVars: {
             origin: window.location.origin,
+            autoplay: 1, // Enable autoplay
           },
           events: {
             onStateChange: onPlayerStateChange,
@@ -103,20 +107,23 @@ export default {
         if (self) return;
 
         const command = message.toLowerCase();
-        if (command === "!skip") {
+        const isPrivilegedUser =
+          tags.username.toLowerCase() === privilegedUser.toLowerCase();
+
+        if (command === "!skip" && isPrivilegedUser) {
           skipToNextVideo();
-        } else if (command === "!pause") {
+        } else if (command === "!pause" && isPrivilegedUser) {
           player.pauseVideo();
-        } else if (command === "!resume") {
+        } else if (command === "!resume" && isPrivilegedUser) {
           player.playVideo();
-        } else if (command === "!stop") {
+        } else if (command === "!stop" && isPrivilegedUser) {
           stopPlaying();
-        } else if (command === "!start") {
+        } else if (command === "!start" && isPrivilegedUser) {
           startPlaying();
         } else {
           const isChannelPointReward =
-            tags["custom-reward-id"] === "YOUR-CUSTOM-REWARD-ID";// You will have to create a channelpoint-reward on which the 'Viewer must enter text' is enabled.
-                                                                                // Use your channelpoint reward with a random word once and got to this website 'https://www.instafluff.tv/TwitchCustomRewardID/?channel=YOUR-TWITCH-USERNAME' <-- don't forget to edit the URL
+            tags["custom-reward-id"] === "YOUR-CUSTOM-REWARD-ID"; // You will have to create a channelpoint-reward on which the 'Viewer must enter text' is enabled.
+                                                                  // Use your channelpoint reward with a random word once and got to this website 'https://www.instafluff.tv/TwitchCustomRewardID/?channel=YOUR-TWITCH-USERNAME' <-- don't forget to edit the URL
 
           if (isChannelPointReward) {
             const pattern =
@@ -156,25 +163,20 @@ export default {
           }
         }
       });
+
+      player.addEventListener("onStateChange", onPlayerStateChange);
     });
 
-    const progressBarWidth = computed(() => {
-      if (player && currentVideo) {
-        const currentTime = player.getCurrentTime();
-        const videoDuration =
-          currentVideo.endTimeSeconds - currentVideo.startTimeSeconds;
-        const progressPercentage =
-          (currentTime - currentVideo.startTimeSeconds) / videoDuration;
-        return `${progressPercentage * 100}%`;
+    watch(videoQueue, () => {
+      if (!currentVideo && !isVideoLoaded && !hideWebsite.value) {
+        playNextVideo();
       }
-      return "0%";
     });
 
     return {
       playerDiv,
       isPlaying,
       videoQueue,
-      progressBarWidth,
       hideWebsite,
     };
   },
@@ -184,19 +186,5 @@ export default {
 <style>
 .is-invisible {
   display: none;
-}
-
-.loading-bar {
-  width: 100%;
-  height: 10px;
-  background-color: #ccc;
-  margin-top: 10px;
-}
-
-.progress {
-  height: 100%;
-  background-color: #ff0000;
-  width: 0;
-  transition: width 1s linear;
 }
 </style>
