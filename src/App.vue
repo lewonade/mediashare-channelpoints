@@ -34,6 +34,8 @@ export default {
     let player;
     let currentVideo = null;
     let isVideoLoaded = false;
+    let isStopped = false;
+    let skippedVideoId = null;
     const isPlaying = ref(false);
     const progress = ref(0);
     const playerWidth = ref(0);
@@ -82,6 +84,27 @@ export default {
       }
     };
 
+    const stopVideo = () => {
+      if (currentVideo) {
+        skippedVideoId = currentVideo.videoId;
+        player.stopVideo();
+        isPlaying.value = false;
+        isStopped = true;
+      }
+    };
+
+    const startVideo = () => {
+      if (isStopped) {
+        isStopped = false;
+        if (videoQueue.value.length > 0) {
+          if (videoQueue.value[0].videoId === skippedVideoId) {
+            videoQueue.value.shift();
+          }
+          playNextVideo();
+        }
+      }
+    };
+
     const skipToNextVideo = () => {
       if (currentVideo) {
         player.stopVideo();
@@ -108,6 +131,10 @@ export default {
       lewonaBUHUHUHU: "RT_RzWrSrac",
       lewonaGRRR: "GF0fG3KRhRo",
       lewonaThumbs: "tjDS1PAqKUw",
+      lewonaMeisterRotato: "8xM-xJzevO8",
+      lewonaMeister: "8xM-xJzevO8",
+      lewonaStare: "DPr3vjH4YYM",
+      lewonaDing: "s5qVcgI7yys",
     };
 
     const emotePlayerDiv = ref(null);
@@ -156,8 +183,8 @@ export default {
 
       const options = {
         identity: {
-          username: "YOUR-CLIENT-ID", // Go to this Link https://dev.twitch.tv/console/apps and add a new Applikation with the URL beeing 'https://localhost', everything else doesn't matter.
-          password: "oauth:oauth:abcdefghijklmnopqrstuvwxyz", // To retrieve your oautch-token you'll have to go to this website https://twitchapps.com/tmi/
+          username: "**REPLACE WITH APP LINK**", // Go to this Link https://dev.twitch.tv/console/apps and add a new Applikation with the URL beeing 'https://localhost', everything else doesn't matter.
+          password: "oauth:**REPLACE WITH OAUTH TOKEN**", // To retrieve your oautch-token you'll have to go to this website https://twitchapps.com/tmi/
         },
         channels: ["Lewonade"], // Add you Twitch-Channel name. so the chatbot knows what chat to read.
       };
@@ -167,12 +194,17 @@ export default {
       client.connect();
 
       client.on("message", (channel, tags, message, self) => {
-        if (self) return;
-
         const command = message.toLowerCase();
+
         const isPrivilegedUser =
-          tags.badges &&
-          (tags.badges.vip || tags.badges.moderator || tags.badges.broadcaster);
+          tags.badges && (tags.badges.moderator || tags.badges.broadcaster);
+
+        if (self) return;
+        if (command === "!stop" && isPrivilegedUser) {
+          stopVideo();
+        } else if (command === "!start" && isPrivilegedUser) {
+          startVideo();
+        }
 
         if (
           command === "!skip" &&
@@ -186,7 +218,7 @@ export default {
           player.playVideo();
         } else {
           const isChannelPointReward =
-            tags["custom-reward-id"] === ""YOUR-CUSTOM-REWARD-ID"; // You will have to create a channelpoint-reward on which the 'Viewer must enter text' is enabled.
+            tags["custom-reward-id"] === "**REPLACE WITH CUSTOM REWARD ID**"; // You will have to create a channelpoint-reward on which the 'Viewer must enter text' is enabled.
           // Use your channelpoint reward with a random word once and got to this website 'https://www.instafluff.tv/TwitchCustomRewardID/?channel=YOUR-TWITCH-USERNAME' <-- don't forget to edit the URL
 
           if (isChannelPointReward) {
